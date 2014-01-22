@@ -2,3 +2,35 @@
 #then concatenate with a space
 str(!fldLUC!)+ ' '+ !LUC_Desc!
 
+
+#Concatenate
+#
+# "*args" allows this routine to accept any number of field values.
+# the values are passed as a Python tuple, essentially a
+# non-editable list
+#
+def concat(*args):
+ 
+  # Initialize the return value to an empty string,
+  # then set the separator character
+  #
+  retval = ""
+  sep = " "
+ 
+  # For each value passed in...
+  #
+  for t in args:
+    # Convert to a string (this catches any numbers),
+    # then remove leading and trailing blanks
+    #
+    s = str(t).strip()
+ 
+    # Add the field value to the return value, using the separator
+    # defined above
+    #
+    if s <> '':
+      retval += sep + s
+ 
+  # Strip of any leading separators before returning the value
+  #
+  return retval.lstrip(sep)
