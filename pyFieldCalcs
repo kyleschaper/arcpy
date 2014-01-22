@@ -1,0 +1,4 @@
+#convert number field to string first
+#then concatenate with a space
+str(!fldLUC!)+ ' '+ !LUC_Desc!
+
