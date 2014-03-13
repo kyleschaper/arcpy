@@ -4,6 +4,7 @@ str(!fldLUC!)+ ' '+ !LUC_Desc!
 
 
 #Concatenate
+#http://blogs.esri.com/esri/arcgis/2010/08/30/concatenate/
 #
 # "*args" allows this routine to accept any number of field values.
 # the values are passed as a Python tuple, essentially a
