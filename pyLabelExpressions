@@ -69,3 +69,8 @@ def FindLabel ( [NAME], [WATERAREA]  ):
 
 #### Return the second, third, fourth, and fifth characters, i.e. 'IELD'
 !fieldname![1:4]
+
+#### Combine FieldA and FieldB separated by a colon
+"%s:%s" % (!FieldA!, !FieldB!)
+
+
