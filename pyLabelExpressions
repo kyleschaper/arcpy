@@ -51,3 +51,21 @@ def FindLabel ( [NAME], [WATERAREA]  ):
   else:
     s = s + '\n' + 'Lake'
     return s
+
+#### Return the three right-most characters
+!FIELD_NAME![-3:]
+
+#### Replace any cases of an uppercase "P" with a lowercase "p"
+!FIELD_NAME!.replace("P","p")
+
+#### Concatenate two fields with a space separator
+!FIELD_NAME_1! + " " + !FIELD_NAME_2!
+
+#### Return the first character, i.e. 'F'
+!FIELD_NAME![0]
+
+#### Return the second-last character, i.e. 'M'
+!FIELD_NAME!-2]
+
+#### Return the second, third, fourth, and fifth characters, i.e. 'IELD'
+!fieldname![1:4]
