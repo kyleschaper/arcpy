@@ -1,0 +1,37 @@
+# export bookmarks to feature class
+# from http://resources.arcgis.com/en/help/main/10.1/index.html#//00s300000060000000
+
+import arcpy, os
+
+# The map with the bookmarks
+mxd = arcpy.mapping.MapDocument("CURRENT")
+
+# The output feature class to be created -
+# This feature class will store the bookmarks as features
+outFC = r'\\audgissrv\GIS\Projects\Lexur\shape\Bookmarks_Muni.shp'
+
+# A template feature class that contains the attribute schema
+# Including a "Name" field to store the bookmark name
+template = r'\\audgissrv\GIS\Projects\Lexur\gdb\ResNeighborhoods.gdb\Template'
+
+if arcpy.Exists(outFC):
+    arcpy.Delete_management(outFC)
+arcpy.CreateFeatureclass_management(os.path.dirname(outFC),
+                                    os.path.basename(outFC), 
+                                    "POLYGON", template, 
+                                    spatial_reference=template)
+# The dataframe to rotate
+df = arcpy.mapping.ListDataFrames(mxd, "Layers")[0]
+df.rotation = 3.5
+cur = arcpy.da.InsertCursor(outFC, ["SHAPE@", "Name"])
+array = arcpy.Array()
+
+for bkmk in arcpy.mapping.ListBookmarks(mxd):
+    array.add(arcpy.Point(bkmk.extent.XMin, bkmk.extent.YMin))
+    array.add(arcpy.Point(bkmk.extent.XMin, bkmk.extent.YMax))
+    array.add(arcpy.Point(bkmk.extent.XMax, bkmk.extent.YMax))
+    array.add(arcpy.Point(bkmk.extent.XMax, bkmk.extent.YMin))
+    # To close the polygon, add the first point again
+    array.add(arcpy.Point(bkmk.extent.XMin, bkmk.extent.YMin))
+    cur.insertRow([arcpy.Polygon(array), bkmk.name])
+    array.removeAll()
