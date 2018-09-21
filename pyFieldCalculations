@@ -2,8 +2,14 @@
 #then concatenate with a space
 str(!fldLUC!)+ ' '+ !LUC_Desc!
 
+#Join
+#join fields together (including nulls) into a new field with underscore separator
+#https://community.esri.com/blogs/dan_patterson/2016/11/03/before-i-forget-18-those-pesky-null-things
+#there is a for loop in the argument
+"_".join([str(i) for i in [ !STR_PRE!, !STR_NAME!, !STR_TYPE!, !STR_SUFFIX! ] if i])
 
-#Concatenate
+
+#Concatenate - THIS DOESN'T WORK AS WELL AS .join()
 #http://blogs.esri.com/esri/arcgis/2010/08/30/concatenate/
 #
 # "*args" allows this routine to accept any number of field values.
